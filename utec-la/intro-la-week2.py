@@ -72,6 +72,8 @@ def matx_basics(matx1, matx2, op):
                 tmp.append(val2 * matx2[idx1][idx2])
             elif "/" == op:
                 tmp.append(val2 / matx2[idx1][idx2])
+            else:
+                raise('Debe indicar un tipo de operacion +, -, *, /')
 
         matx_result.append(tmp)
     return np.array(matx_result)
@@ -112,3 +114,75 @@ def matx_dot_product(matx1, matx2):
 # print(matx_dot_product(R, T))
 # print('')
 # print(R@T)
+
+
+# lecture week 2.6 extensions
+# simetrica
+Ms = np.array([[9,8,7,6], [8,9,8,7], [7,8,9,8], [6,7,8,9]])
+# print(Ms.T == Ms)
+# triangular
+Mt = np.array([[9,8,7,6], [0,9,8,7], [0,0,9,8], [0,0,0,9]])
+# lower
+# print(Mt)
+# upper
+# print(Mt.T)
+# print(np.tril(Ms))
+# print(np.triu(Ms))
+#diagonal
+# print(np.diag(Ms))
+# print(np.diag(np.diag(Ms)))
+#identity
+# print(np.identity(7))
+#orthogonal
+V = np.linalg.inv(Ms)
+# print(V)
+# print(Ms.T)
+# print(Ms@Ms.T)
+
+
+def simetrica(n):
+    return np.random.randint(1,10, size=(n,n))
+
+
+def triangular(n):
+    m = simetrica(n)
+    for idx in range(1, m.shape[0]):
+        for idx2 in range(0, idx):
+            m[idx, idx2] = 0
+
+    return m
+
+
+def diagonal(n):
+    m = simetrica(n)
+    tmp = []
+    for idx in range(0, m.shape[0]):
+        for idx2 in range(idx, idx+1):
+            tmp.append(m[idx, idx2])
+
+    return np.array(tmp)
+
+def diagonal_mtx(mtx):
+    size = mtx.shape[0]
+    zeros = np.zeros((size, size))
+    for idx in range(0, size):
+        for idx2 in range(idx, idx+1):
+            zeros[idx, idx2] = mtx[idx]
+
+    return zeros
+
+
+def identity(n):
+    zeros = np.zeros((n, n))
+    for idx in range(0, n):
+        for idx2 in range(idx, idx+1):
+            zeros[idx, idx2] = 1
+
+    return zeros
+
+# print(simetrica(14))
+# print(triangular(9))
+# d = diagonal(4)
+# print(d)
+# print(diagonal_mtx(d))
+print(identity(8))
