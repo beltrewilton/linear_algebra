@@ -185,4 +185,18 @@ def identity(n):
 # d = diagonal(4)
 # print(d)
 # print(diagonal_mtx(d))
-print(identity(8))
+# print(identity(8))
+
+
+# lecture week 2.7 extensions
+
+def transpose(matx):
+    return np.array([matx[:, r] for r in range(matx.shape[1])])
+
+# S = simetrica(9)
+# print(S)
+# print(transpose(S))
+
+def trace(n):
+    return sum(diagonal(n))
+
