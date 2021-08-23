@@ -187,26 +187,23 @@ print('Respuesta: {}\n'.format(is_inverse(M1, I1)))
     > fuente: https://en.wikipedia.org/wiki/Determinant
 """
 
+from itertools import permutations
+
 
 def consecutive(row):
     return (row[1]-row[0] == 1) or (row[2]-row[1] == 1)
 
 
 def Leibniz_det(matx):
-    perm = list(permutations([1,2,3]))
-    acum = 0
-    for a in perm:
-        sign = 1 if consecutive(a) else -1
-        # print('{}\n  {}x{}x{}'.format(a, matx[0][a[0]-1], matx[1][a[1]-1], matx[2][a[2]-1]))
-        acum += (sign * matx[0][a[0]-1]) * matx[1][a[1]-1] * matx[2][a[2]-1]
-    return acum
+    perm = list(permutations([1, 2, 3]))
+    return sum([((1 if consecutive(a) else -1) * matx[0][a[0]-1]) * matx[1][a[1]-1] * matx[2][a[2]-1] for a in perm])
 
 
 test_matrx = np.random.randint(2,7, size=(3,3))
-print('test8: Determinante usando el metodo de Leibniz.')
+print('random 3x3')
 print(beauti(test_matrx))
-print('Determinate, mi implementacion: {}'.format(Leibniz_det(test_matrx)))
-print('Determinate, NumPy: {}\n'.format(np.linalg.det(test_matrx)))
+print('In my own: {}'.format(Leibniz_det(test_matrx)))
+print('NumPy: {}\n'.format(np.linalg.det(test_matrx)))
 
 
 """
